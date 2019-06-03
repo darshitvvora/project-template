@@ -3,9 +3,20 @@
     "env": {
         "es6": true
     },
-    "globals": {},
+    "extends": [
+      "airbnb/base"
+    ],
+    "globals": {
+      "angular": true,
+      "it": true,
+      "describe": true
+    },
     "plugins": [],
     "rules": {
+        "new-cap": [2, {"capIsNewExceptions": [
+          "angular",
+          "express.Router"
+        ]}],
         //Possible Errors
         "comma-dangle": 0,                                          //disallow or enforce trailing commas
         "no-cond-assign": 2,                                        //disallow assignment in conditional expressions

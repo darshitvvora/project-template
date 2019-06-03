@@ -14,32 +14,38 @@ import cookieParser from 'cookie-parser';
 import errorHandler from 'errorhandler';
 import path from 'path';
 import lusca from 'lusca';
+const cors = require('cors');
 import config from './environment';
 import passport from 'passport';
 import session from 'express-session';
-import sqldb from '../sqldb';
+import sqldb from '../config/sqldb';
 let Store = require('connect-session-sequelize')(session.Store);
 
 export default function(app) {
-  var env = app.get('env');
+  const env = app.get('env');
 
   if(env === 'development' || env === 'test') {
     app.use(express.static(path.join(config.root, '.tmp')));
+    app.use(morgan('dev'));
   }
 
   if(env === 'production') {
     app.use(favicon(path.join(config.root, 'client', 'favicon.ico')));
   }
 
+  // - only if you're behind a reverse proxy (Heroku, Bluemix, AWS if you use\, custom Nginx setup)
+  app.enable('trust proxy');
+
   app.set('appPath', path.join(config.root, 'client'));
   app.use(express.static(app.get('appPath')));
-  app.use(morgan('dev'));
+
 
   app.set('views', `${config.root}/server/views`);
   app.set('view engine', 'pug');
+  app.use(cors());
   app.use(compression());
-  app.use(bodyParser.urlencoded({ extended: false }));
-  app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: false,  limit: '50mb' }));
+  app.use(bodyParser.json({ limit: '50mb' }));
   app.use(methodOverride());
   app.use(cookieParser());
   app.use(passport.initialize());

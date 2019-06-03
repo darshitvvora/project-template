@@ -4,16 +4,16 @@
 
 'use strict';
 
-import express from 'express';
-import sqldb from './sqldb';
-import config from './config/environment';
-import http from 'http';
-import seedDatabaseIfNeeded from './config/seed';
+const express = require('express');
+const http = require('http');
+const sqldb = require('./config/sqldb');
+const config = require('./config/environment');
+const seedDatabaseIfNeeded = require('./config/seed');
 
 // Setup server
-var app = express();
-var server = http.createServer(app);
-var socketio = require('socket.io')(server, {
+const app = express();
+const server = http.createServer(app);
+const socketio = require('socket.io')(server, {
   serveClient: config.env !== 'production',
   path: '/socket.io-client'
 });
