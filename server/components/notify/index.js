@@ -1,7 +1,15 @@
+/*
+* Purpose: Use this to send notifications to slack and notification server
+* Usage:
+* const Notify = require('../../components/notify');
+* const slackSent = await Notify.slack(`${SLACK_USER_NAME} Sending Successful,
+        from ${PREFIX}${DOMAIN}`, SLACK_CRON_URL);
+* */
+
 const rp = require('request-promise');
 const config = require('../../config/environment');
 
-export default {
+module.exports = {
   slack(text, uri = config.URLS.SLACK) {
     if (config.env !== 'production') return '';
 

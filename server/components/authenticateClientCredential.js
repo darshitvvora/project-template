@@ -1,3 +1,10 @@
+/*
+* Purpose: Middleware for clientCredential grant type authentication
+* Usage:
+* const { authenticateClientCredential } = require('../../components/authenticateClientCredential');
+* router.get('/clients', authenticateClientCredential(), clients.index);
+* */
+
 const config = require('../config/environment');
 
 function authenticateClientCredential() {
@@ -17,6 +24,4 @@ function authenticateClientCredential() {
   };
 }
 
-module.exports = {
-  authenticateClientCredential,
-};
+module.exports = authenticateClientCredential;

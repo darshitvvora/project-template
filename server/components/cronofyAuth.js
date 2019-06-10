@@ -1,3 +1,11 @@
+/*
+* Purpose: Middleware for authenticating CRONOFY service for sending calendar events
+* Usage:
+* const cronofyAuth = require('./components/cronofyAuth');
+* app.use('/api/cronofyEvents', cronofyAuth, require('./api/cronofyEvent'));
+* */
+
+
 const crypto = require('crypto');
 
 const { CRONOFY_CLIENT_SECRET_KEY } = require('../config/environment');

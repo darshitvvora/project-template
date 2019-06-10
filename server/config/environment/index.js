@@ -1,10 +1,12 @@
-'use strict';
-/*eslint no-process-env:0*/
+
+/* eslint no-process-env:0 */
 
 const fs = require('fs');
 const path = require('path');
 const dotenv = require('dotenv');
 const _ = require('lodash');
+const shared = require('./shared');
+
 
 // All configurations will extend these options
 // ============================================
@@ -14,9 +16,7 @@ if (!fs.existsSync(path.join(root, '.env'))) {
   fs.writeFileSync(path.join(root, '.env'), fs.readFileSync(path.join(root, '.env.sample')));
 }
 
-const env = dotenv.config({ path: path.join(root, '.env') });
-const IS_DEV = env.NODE_ENV === 'development';
-const { DOMAIN, PREFIX, GOOGLE_CLIENT_ID } = env;
+const env = dotenv.config({ path: path.join(root, '.env') }).parsed;
 
 const all = {
   env: env.NODE_ENV,
@@ -39,14 +39,14 @@ const all = {
   },
 
   // Should we populate the DB with sample data?
- // seedDB: false,
+  // seedDB: false,
 
   // Secret for session, you will want to change this and make it an environment variable
   secrets: {
-    session: 'Wndh34Njdn4n$ds'
+    session: 'Wndh34Njdn4n$ds',
   },
 
-  /*// MongoDB connection options
+  /* // MongoDB connection options
   mongo: {
     options: {
       db: {
@@ -55,11 +55,6 @@ const all = {
     }
   },
 */
-  google: {
-    clientID: process.env.GOOGLE_ID || 'id',
-    clientSecret: process.env.GOOGLE_SECRET || 'secret',
-    callbackURL: `${process.env.DOMAIN || ''}/auth/google/callback`
-  }
 };
 
 // Export the config object based on the NODE_ENV
@@ -67,5 +62,4 @@ const all = {
 module.exports = _.merge(
   all,
   env,
-  require('./shared'),
-  require(`./${process.env.NODE_ENV}.js`) || {});
+  shared || {});

@@ -1,3 +1,12 @@
+/*
+* Purpose: Used as proxy for sending sms via gupshup or routesms to slack
+* Usage:
+In express.js
+* const Proxy = require('../components/proxies');
+  if (config.PREFIX !== 'https://') Proxy.enable(['routesms', 'gupshup']);
+
+* */
+
 const nock = require('nock');
 const Notify = require('../../components/notify');
 

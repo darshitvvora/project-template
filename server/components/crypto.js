@@ -1,9 +1,17 @@
-import crypto from 'crypto';
-import config from '../config/environment';
+/*
+* Purpose: Middleware for symmetrically encrypting and decrypting values for creating keys
+* Usage:
+* const { encrypt } = require('../../components/crypto');
+* const key = encrypt(`${client.id}|${expires}`);
+* const [decryptedClientId, expires] = decrypt(req.query.key).split('|');
+* */
+
+const crypto = require('crypto');
+const config = require('../config/environment');
 
 const defConf = {
   algo: 'aes-256-ctr',
-  pass: config.CYPTO_PASS || 'It should be highly secretive',
+  pass: config.CRYPTO_PASS || 'It should be highly secretive',
 };
 
 export function encrypt(text, conf = defConf) {
