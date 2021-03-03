@@ -44,7 +44,7 @@
     "morgan": "^1.8.0",
     "mysql2": "^1.6.5",
     "nock": "^10.0.6",
-    "pug": "2.0.0-beta4",
+    "pug": "3.0.1",
     "request-promise": "^4.2.4",
     "sequelize": "^5.8.7",
     "serve-favicon": "^2.3.0",
